@@ -1,8 +1,29 @@
 const express = require('express');
-const morgan = require('morgan');
-const { getPosts } = require('./routes/post');
-
 const app = express()
+
+const mongoose = require('mongoose');
+const morgan = require('morgan');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const postRoutes = require('./routes/post')
+
+//db connection
+mongoose.connect(
+  process.env.MONGO_URI,
+  { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+)
+  .then(() => {
+    console.log('DB Connected')
+  })
+
+mongoose.connection.on('error', err => {
+  console.log(`DB connection error: ${err.message}`)
+})
+
 
 app.use(morgan('dev'))
 // app.use((req, res, next) => {
@@ -15,10 +36,11 @@ app.use(morgan('dev'))
 //   next();
 // }
 
-app.get('/', getPosts)
+app.use('/', postRoutes)
+
 // app.get('/', customMiddleware, getPosts)
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`A Node JS API is listening on port: ${port}`)
