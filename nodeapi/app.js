@@ -1,10 +1,22 @@
 const express = require('express');
+const morgan = require('morgan');
+const { getPosts } = require('./routes/post');
 
 const app = express()
 
-app.get('/', (req, res) => {
-  res.send('Hello World From Node.js')
-})
+app.use(morgan('dev'))
+// app.use((req, res, next) => {
+//   console.log('MIDDLEWARE')
+//   next();
+// })
+
+// const customMiddleware = (req, res, next) => {
+//   console.log('CUSTOM MIDDLEWARE')
+//   next();
+// }
+
+app.get('/', getPosts)
+// app.get('/', customMiddleware, getPosts)
 
 const port = 8080;
 
