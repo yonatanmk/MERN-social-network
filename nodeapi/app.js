@@ -8,7 +8,8 @@ const expressValidator = require('express-validator');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const postRoutes = require('./routes/post')
+const postRoutes = require('./routes/post');
+const authRoutes = require('./routes/auth')
 
 //db connection
 mongoose.connect(
@@ -27,8 +28,8 @@ mongoose.connection.on('error', err => {
 })
 
 
-app.use(morgan('dev'))
-app.use(bodyParser.json())
+app.use(morgan('dev'));
+app.use(bodyParser.json());
 app.use(expressValidator());
 
 // app.use((req, res, next) => {
@@ -41,7 +42,8 @@ app.use(expressValidator());
 //   next();
 // }
 
-app.use('/', postRoutes)
+app.use('/', postRoutes);
+app.use('/', authRoutes);
 
 // app.get('/', customMiddleware, getPosts)
 
