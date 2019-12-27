@@ -1,5 +1,5 @@
 const express = require('express');
-const { signup } = require('../controllers/auth');
+const { signup, signin } = require('../controllers/auth');
 
 // import password reset validator
 const { userSignupValidator } = require('../validator');
@@ -9,6 +9,7 @@ const { userSignupValidator } = require('../validator');
 const router = express.Router();
 
 router.post('/signup', userSignupValidator, signup);
+router.post('/signin', signin);
 // router.post('/signin', userSigninValidator, signin);
 // router.get('/signout', signout);
 
