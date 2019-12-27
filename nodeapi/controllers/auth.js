@@ -1,7 +1,7 @@
   
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-// const expressJwt = require('express-jwt');
+const expressJwt = require('express-jwt');
 const User = require('../models/user');
 // const _ = require('lodash');
 // const { OAuth2Client } = require('google-auth-library');
@@ -52,10 +52,10 @@ exports.signout = (req, res) => {
   return res.json({ message: 'Signout success!' });
 };
 
-// exports.requireSignin = expressJwt({
-//     secret: process.env.JWT_SECRET,
-//     userProperty: 'auth'
-// });
+exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET,
+    // userProperty: 'auth',
+});
 
 // exports.forgotPassword = (req, res) => {
 //     if (!req.body) return res.status(400).json({ message: 'No request body' });
