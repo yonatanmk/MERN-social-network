@@ -10,7 +10,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const postRoutes = require('./routes/post');
-const authRoutes = require('./routes/auth')
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 
 //db connection
 mongoose.connect(
@@ -41,6 +42,7 @@ app.use(expressValidator());
 
 app.use('/', postRoutes);
 app.use('/', authRoutes);
+app.use('/', userRoutes);
 
 app.use((err, req, res, next) => {
   if(err.name === 'UnauthorizedError') {
