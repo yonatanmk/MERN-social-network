@@ -5,6 +5,9 @@ const _ = require('lodash');
 
 exports.getPosts = (req, res) => {
   const posts = Post.find().select('_id title body')
+    .populate('postedBy', '_id name')
+    // .populate('comments.postedBy', '_id name')
+    // .populate('postedBy', '_id name role')
     .then(posts => res.json({ posts }))
     .catch(err => console.log(err))
 };
@@ -86,4 +89,19 @@ exports.createPost = (req, res, next) => {
       res.json(result);
     });
   });
+};
+
+exports.postsByUser = (req, res) => {
+  Post.find({ postedBy: req.profile._id })
+    .populate('postedBy', '_id name')
+    .select('_id title body created likes')
+    .sort('_created')
+    .exec((err, posts) => {
+      if (err) {
+        return res.status(400).json({
+          error: err
+        });
+      }
+      res.json(posts);
+    });
 };
