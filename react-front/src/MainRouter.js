@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./core/Home";
 // import Menu from "./core/Menu";
-// import Signup from "./user/Signup";
+import Signup from "./user/Signup";
 // import Signin from "./user/Signin";
 // import Profile from "./user/Profile";
 // import Users from "./user/Users";
@@ -20,6 +20,7 @@ const MainRouter = () => (
   <div>
     <Switch>
       <Route exact path="/" component={Home} />
+      <Route exact path="/signup" component={Signup} />
     </Switch>
   </div>
 );
