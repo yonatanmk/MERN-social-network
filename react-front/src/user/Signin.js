@@ -11,7 +11,7 @@ class Signin extends Component {
             password: "",
             error: "",
             redirectToReferer: false,
-            // loading: false,
+            loading: false,
             // recaptcha: false
         };
     }
@@ -55,7 +55,7 @@ class Signin extends Component {
 
     clickSubmit = event => {
         event.preventDefault();
-        // this.setState({ loading: true });
+        this.setState({ loading: true });
         const { email, password } = this.state;
         const user = {
             email,
@@ -65,7 +65,7 @@ class Signin extends Component {
 
         this.signin(user).then(data => {
             if (data.error) {
-                this.setState({ error: data.error });
+                this.setState({ error: data.error, loading: false });
             } else {
                 // authenticate
                 this.authenticate(data, () => {
@@ -189,13 +189,13 @@ class Signin extends Component {
                     {error}
                 </div>
 
-                {/* {loading ? (
+                {loading ? (
                     <div className="jumbotron text-center">
                         <h2>Loading...</h2>
                     </div>
                 ) : (
                     ""
-                )} */}
+                )}
 
                 {this.signinForm(email, password, recaptcha)}
 
