@@ -1,6 +1,6 @@
   
 import React, { Component } from "react";
-// import { signup } from "../auth";
+import { signup } from "../auth";
 // import { Link } from "react-router-dom";
 // import SocialLogin from "./SocialLogin";
 
@@ -30,7 +30,7 @@ class Signup extends Component {
             email,
             password
         };
-        this.signUp(user)
+        signup(user)
             .then(data => {
                 if (data.error) {
                     this.setState({ error: data.error });
@@ -45,22 +45,6 @@ class Signup extends Component {
                 }
             });
     };
-
-    signUp = user => {
-        return fetch("http://localhost:8080/signup", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-            .then(response => {
-                console.log(response)
-                return response.json();
-            })
-            .catch(err => console.error(err));
-    }
 
     signupForm = (name, email, password) => (                
         <form>
